@@ -1,0 +1,1835 @@
+{
+	"info": {
+		"_postman_id": "ab274c26-f159-4be4-8f23-79733e08ef06",
+		"name": "Desafio Inter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13890519"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Set userID on environment\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"userID\", jsonData.id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jane Doe\",\n    \"email\": \"jane.doe@gmail.com\"    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{userID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{userID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user by ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jane Doe\",\n    \"email\": \"jane.doe@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/{{userID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get calculations by user ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{userID}}/calculations",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{userID}}",
+								"calculations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add public key to user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"publicKey\": \"-----BEGIN PUBLIC KEY----- MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQB8lgwSZCCJD2C+eSIok1X3FCbitOCrbf/Nmi1k1e1g0QBQdPiANU9Zzpl0pujK+E9Gtf585R5UfnMzPR8afq0bAIBmiysLGuP5WjT9cGcrwitgqPU4gCvoRuBmbMvfPKs1TJcmjt2h+fgyZoSDLkZQf2FCe4yEjDd/TnG2UWVAvbSmbr7UGE/tpnreQMPtQk6t/FLHXp5fJ3uloxDKMQAiH9aMZvgQgikBt70NzoruNvJhXutuu6qWXNfgYI8MIcoUzE6iAx8bNoqS1VFA3WB8X/WcathU8J+jfLa+GJu+cODXJem3bquD9ZPfUubDBzZxm1nsnXC8uF2eFliP/sMBAgMBAAE= -----END PUBLIC KEY-----\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/{{userID}}/publicKey",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{userID}}",
+								"publicKey"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Unique Digit",
+			"item": [
+				{
+					"name": "Calculate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": \"12\",\n    \"k\": 1266,\n    \"userID\": \"{{userID}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/calculate",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"calculate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tests",
+			"item": [
+				{
+					"name": "Create user",
+					"item": [
+						{
+							"name": "Should return success when create user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return success when create an user with valid body\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(201);",
+											"});",
+											"",
+											"pm.test(\"should return userDTO with valid ID\", () => {",
+											"    pm.expect(pm.response.json().id).to.be.not.null;",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe1111@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return error when try create user wiht invalid body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return error when create an user with invalid body\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"\",\n    \"email\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return error when try create user wiht invalid email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return error when create an user with invalid email\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return success when create user with valid public key and expected size",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return success when create an user with valid body\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(201);",
+											"});",
+											"",
+											"pm.test(\"should return userDTO with valid ID\", () => {",
+											"    pm.expect(pm.response.json().id).to.be.not.null;",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe52443a@gmail.com\",\n    \"publicKey\": \"-----BEGIN PUBLIC KEY-----MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBkUIOQ9tY7KnvEEdN4ohwf6SapmFs4F981UaFH2Z5lPrmzlFx9y7xAZLckuivT+kHjg76/6naBpci+vFH1Wt2hordWUIKClglbJ+mN3TEfkXNJXrRrFzUtRp/BozXJUWla6nnuDJNIan8f26LCdmq9924IJU0jGXGaLXtkqwLfclytw4qlJWM0JHQJm9R9I7akxL3bGPrV3WhbEQirwnCEnw3YjxEKS3KtTUwoqZ17cjeORdNUp/P7C1rFOuzxbL8o/0Iv/jMsMVaNvWT+PssZZI948T2acRAvyVvyJUpDtY4qmsaQ8pq+cnHyriVeMhEMcNLo7AL+1/zRO/yniL2ZAgMBAAE=-----END PUBLIC KEY-----\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return error when create user with invalid public key",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return error when create user with invalid public key\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe43123@gmail.com\",\n    \"publicKey\": \"aaaaa\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return error when create user with invalid size public key",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return error when create user with invalid public key\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe1235t243das@gmail.com\",\n    \"publicKey\": \"-----BEGIN PUBLIC KEY-----MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGCIOrF90x9mOs9ls7BP50CGFAZGra+Mh+aP0uPBuB7Kci1dV9jA9ElU5Wb9/avwKiqksOPRUU0ZFEJNvJvzKvM/9pwVLQWGnh0cesSA+8mBsjpBbUN4ALVOKg9GpNvyXLoLUqY9lQ9Q6HKXGedF+S2gvlNKCDlbvT6gbc8gNvGTAgMBAAE=-----END PUBLIC KEY-----\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get user by ID",
+					"item": [
+						{
+							"name": "Should return an user by ID if user exists",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": \"john.doe35@gmail.com\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return an user by ID\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(200);",
+											"});",
+											"",
+											"pm.test(\"Should return expected value to user properties\", () =>{",
+											"    const user = pm.response.json();",
+											"    pm.expect(user.name).to.equals(\"John Doe\");",
+											"    pm.expect(user.email).to.equals(\"john.doe35@gmail.com\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/users/{{userID}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return not found if user doesn't exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return not found if user doesnot exist\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(404);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/users/86783ffd-1a06-458d-a315-ee6aa11f03f2",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"86783ffd-1a06-458d-a315-ee6aa11f03f2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete user by ID",
+					"item": [
+						{
+							"name": "It should delete user by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var myRandomValue = \"RND\"+String((new Date()).getTime()).replace(/\\compD/gi,'').substring(7);",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": myRandomValue+\"@gmail.com\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return NO CONTENT when deleting user by ID\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(204);",
+											"});",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users/\" + pm.environment.get('userID'),",
+											"    method: 'GET',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.test(\"should return NOT FOUND after deleting user\", () =>{",
+											"        pm.expect(res.code, 404)",
+											"    });    ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/users/{{userID}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update User by ID",
+					"item": [
+						{
+							"name": "Should return success when updating an user that exists with valid body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return success when updating an user with valid body\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(204);",
+											"});",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users/\" + pm.environment.get('userID'),",
+											"    method: 'GET',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.test(\"should return SUCCESS when getting an user after updating user\", () =>{",
+											"        pm.expect(res.code, 200)",
+											"    });    ",
+											"",
+											"    pm.test(\"should return the updated body after updaeting the user\", () =>{",
+											"        let response = res.json();",
+											"        pm.expect(response.email, \"john.doe2@gmail.com\")",
+											"        pm.expect(response.name, \"John Doe 2\");",
+											"    });    ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var myRandomValue = \"RND\"+String((new Date()).getTime()).replace(/\\compD/gi,'').substring(7);",
+											"",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": myRandomValue+\"@gmail.com\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe 2\",\n    \"email\": \"john.doe2@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{userID}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return not found when updating an user that does not exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return NOT FOUND when updating an user that doesnt exist\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(404);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe 2\",\n    \"email\": \"john.doe2@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/744f8ee8-0588-459a-84b0-3516684cbd1c",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"744f8ee8-0588-459a-84b0-3516684cbd1c"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return error when try updating a user with invalid body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return error when update an user with invalid body\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"\",\n    \"email\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/125f20e8-dca5-4acd-8bdd-3f2d863eb775",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"125f20e8-dca5-4acd-8bdd-3f2d863eb775"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return error when try updating user with invalid email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return error when updating an user with invalid email\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/125f20e8-dca5-4acd-8bdd-3f2d863eb775",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"125f20e8-dca5-4acd-8bdd-3f2d863eb775"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return success when updating user with valid public key and expected size",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return success when updating an user that exists with valid body\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var myRandomValue = \"RND\"+String((new Date()).getTime()).replace(/\\compD/gi,'').substring(7);",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": myRandomValue+\"john.doe@gmail.com\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doeadas1234123@gmail.com\",\n    \"publicKey\": \"-----BEGIN PUBLIC KEY-----MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBkUIOQ9tY7KnvEEdN4ohwf6SapmFs4F981UaFH2Z5lPrmzlFx9y7xAZLckuivT+kHjg76/6naBpci+vFH1Wt2hordWUIKClglbJ+mN3TEfkXNJXrRrFzUtRp/BozXJUWla6nnuDJNIan8f26LCdmq9924IJU0jGXGaLXtkqwLfclytw4qlJWM0JHQJm9R9I7akxL3bGPrV3WhbEQirwnCEnw3YjxEKS3KtTUwoqZ17cjeORdNUp/P7C1rFOuzxbL8o/0Iv/jMsMVaNvWT+PssZZI948T2acRAvyVvyJUpDtY4qmsaQ8pq+cnHyriVeMhEMcNLo7AL+1/zRO/yniL2ZAgMBAAE=-----END PUBLIC KEY-----\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{userID}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return error when updating an user with invalid public key",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return error when updating user with invalid public key\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var myRandomValue = \"RND\"+String((new Date()).getTime()).replace(/\\compD/gi,'').substring(7);",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": \"john.doe34@gmail.com\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe34@gmail.com\",\n    \"publicKey\": \"aaaaa\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{userID}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return error when updating user with invalid size public key",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return error when create user with invalid public key\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": \"john.doe45@gmail.com\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe45@gmail.com\",\n    \"publicKey\": \"-----BEGIN PUBLIC KEY-----MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGCIOrF90x9mOs9ls7BP50CGFAZGra+Mh+aP0uPBuB7Kci1dV9jA9ElU5Wb9/avwKiqksOPRUU0ZFEJNvJvzKvM/9pwVLQWGnh0cesSA+8mBsjpBbUN4ALVOKg9GpNvyXLoLUqY9lQ9Q6HKXGedF+S2gvlNKCDlbvT6gbc8gNvGTAgMBAAE=-----END PUBLIC KEY-----\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{userID}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get calculations by user ID",
+					"item": [
+						{
+							"name": "Should return an empty list for an user that has never calculated anything",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": \"john.doe@gmail.com\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return SUCCESS if user exists\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(200);",
+											"});",
+											"",
+											"pm.test(\"Should return an empty list for an user that has never calculated anything\", () =>{",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.uniqueDigits.length).eq(0);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/users/{{userID}}/calculations",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}",
+										"calculations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return a list for an user that has calculations",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"/**",
+											" * Create user",
+											" */",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": \"john.doe55@gmail.com\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"",
+											"    /**",
+											"     * Calculate unique digit",
+											"     */",
+											"",
+											"    const req2 = {",
+											"        url: pm.environment.get('host') + \"/calculate\",",
+											"        method: 'POST',",
+											"        header: {",
+											"            'content-type': 'application/json',",
+											"        },",
+											"        body: {",
+											"            mode: 'raw',",
+											"            raw: {",
+											"                \"number\": 9875,",
+											"                \"k\": 4,",
+											"                \"userID\": pm.environment.get('userID')",
+											"            }",
+											"        }",
+											"    };",
+											"",
+											"    pm.sendRequest(req2);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return SUCCESS if user exists\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(200);",
+											"});",
+											"",
+											"pm.test(\"Should return a list for an user that has one calculation\", () =>{",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.uniqueDigits.length).eq(1);",
+											"    pm.expect(response.uniqueDigits[0].number).eq(\"9875\");",
+											"    pm.expect(response.uniqueDigits[0].k).eq(4);",
+											"    pm.expect(response.uniqueDigits[0].result).eq(8);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/users/{{userID}}/calculations",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}",
+										"calculations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add public key to a user",
+					"item": [
+						{
+							"name": "Should return success when adding a valid public key to a created user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"should return success when adding a valid public key to a created user\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var myRandomValue = \"RND\"+String((new Date()).getTime()).replace(/\\compD/gi,'').substring(7);",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": myRandomValue+\"john.doe@gmail.com\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"publicKey\": \"-----BEGIN PUBLIC KEY-----MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBkUIOQ9tY7KnvEEdN4ohwf6SapmFs4F981UaFH2Z5lPrmzlFx9y7xAZLckuivT+kHjg76/6naBpci+vFH1Wt2hordWUIKClglbJ+mN3TEfkXNJXrRrFzUtRp/BozXJUWla6nnuDJNIan8f26LCdmq9924IJU0jGXGaLXtkqwLfclytw4qlJWM0JHQJm9R9I7akxL3bGPrV3WhbEQirwnCEnw3YjxEKS3KtTUwoqZ17cjeORdNUp/P7C1rFOuzxbL8o/0Iv/jMsMVaNvWT+PssZZI948T2acRAvyVvyJUpDtY4qmsaQ8pq+cnHyriVeMhEMcNLo7AL+1/zRO/yniL2ZAgMBAAE=-----END PUBLIC KEY-----\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{userID}}/publicKey",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}",
+										"publicKey"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return bad request when adding a invalid public key to a created user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return bad request when adding a invalid public key to a created user\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var myRandomValue = \"RND\"+String((new Date()).getTime()).replace(/\\compD/gi,'').substring(7);",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": myRandomValue+\"john.doe@gmail.com\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"publicKey\": \"aaaa\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{userID}}/publicKey",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}",
+										"publicKey"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return bad request when adding a invalid size public key to a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return bad request when adding a invalid size public key to a created user\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var myRandomValue = \"RND\"+String((new Date()).getTime()).replace(/\\compD/gi,'').substring(7);",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": myRandomValue+\"john.doe@gmail.com\"",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"publicKey\": \"-----BEGIN PUBLIC KEY-----MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGCIOrF90x9mOs9ls7BP50CGFAZGra+Mh+aP0uPBuB7Kci1dV9jA9ElU5Wb9/avwKiqksOPRUU0ZFEJNvJvzKvM/9pwVLQWGnh0cesSA+8mBsjpBbUN4ALVOKg9GpNvyXLoLUqY9lQ9Q6HKXGedF+S2gvlNKCDlbvT6gbc8gNvGTAgMBAAE=-----END PUBLIC KEY-----\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{userID}}/publicKey",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}",
+										"publicKey"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return not found when adding a public key to a non existent user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return not found when adding a public key to a non existent user\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(404);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"publicKey\": \"-----BEGIN PUBLIC KEY-----MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBkUIOQ9tY7KnvEEdN4ohwf6SapmFs4F981UaFH2Z5lPrmzlFx9y7xAZLckuivT+kHjg76/6naBpci+vFH1Wt2hordWUIKClglbJ+mN3TEfkXNJXrRrFzUtRp/BozXJUWla6nnuDJNIan8f26LCdmq9924IJU0jGXGaLXtkqwLfclytw4qlJWM0JHQJm9R9I7akxL3bGPrV3WhbEQirwnCEnw3YjxEKS3KtTUwoqZ17cjeORdNUp/P7C1rFOuzxbL8o/0Iv/jMsMVaNvWT+PssZZI948T2acRAvyVvyJUpDtY4qmsaQ8pq+cnHyriVeMhEMcNLo7AL+1/zRO/yniL2ZAgMBAAE=-----END PUBLIC KEY-----\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/1581291b-8f02-4d94-8dd9-cd536cd12247/publicKey",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"1581291b-8f02-4d94-8dd9-cd536cd12247",
+										"publicKey"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return bad request when adding a public key to user that has been encrypted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return bad request when adding a public key to user that has been encrypted\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var myRandomValue = \"RND\"+String((new Date()).getTime()).replace(/\\compD/gi,'').substring(7);",
+											"",
+											"const req = {",
+											"    url: pm.environment.get('host') + \"/users\",",
+											"    method: 'POST',",
+											"    header: {",
+											"        'content-type': 'application/json',",
+											"    },",
+											"    body: {",
+											"        mode: 'raw',",
+											"        raw: {",
+											"            \"name\": \"John Doe\",",
+											"            \"email\": myRandomValue+\"john.doe@gmail.com\",",
+											"            \"publicKey\": \"-----BEGIN PUBLIC KEY-----MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBkUIOQ9tY7KnvEEdN4ohwf6SapmFs4F981UaFH2Z5lPrmzlFx9y7xAZLckuivT+kHjg76/6naBpci+vFH1Wt2hordWUIKClglbJ+mN3TEfkXNJXrRrFzUtRp/BozXJUWla6nnuDJNIan8f26LCdmq9924IJU0jGXGaLXtkqwLfclytw4qlJWM0JHQJm9R9I7akxL3bGPrV3WhbEQirwnCEnw3YjxEKS3KtTUwoqZ17cjeORdNUp/P7C1rFOuzxbL8o/0Iv/jMsMVaNvWT+PssZZI948T2acRAvyVvyJUpDtY4qmsaQ8pq+cnHyriVeMhEMcNLo7AL+1/zRO/yniL2ZAgMBAAE=-----END PUBLIC KEY-----\"",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.sendRequest(req, (err, res) => {",
+											"    pm.environment.set('userID', res.json().id);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"publicKey\": \"-----BEGIN PUBLIC KEY-----MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBkUIOQ9tY7KnvEEdN4ohwf6SapmFs4F981UaFH2Z5lPrmzlFx9y7xAZLckuivT+kHjg76/6naBpci+vFH1Wt2hordWUIKClglbJ+mN3TEfkXNJXrRrFzUtRp/BozXJUWla6nnuDJNIan8f26LCdmq9924IJU0jGXGaLXtkqwLfclytw4qlJWM0JHQJm9R9I7akxL3bGPrV3WhbEQirwnCEnw3YjxEKS3KtTUwoqZ17cjeORdNUp/P7C1rFOuzxbL8o/0Iv/jMsMVaNvWT+PssZZI948T2acRAvyVvyJUpDtY4qmsaQ8pq+cnHyriVeMhEMcNLo7AL+1/zRO/yniL2ZAgMBAAE=-----END PUBLIC KEY-----\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{userID}}/publicKey",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{userID}}",
+										"publicKey"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Calculate Unique Digit",
+					"item": [
+						{
+							"name": "Should calculate unique digit without user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return success when sending valid body\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(200);",
+											"});",
+											"",
+											"pm.test(\"Should return the correct value\", () =>{",
+											"    const body = pm.response.json();",
+											"    pm.expect(body).to.equals(8);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"number\": 9875,\n    \"k\": 4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/calculate",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"calculate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return bad request if send without number",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return bad request if send without number\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"k\": 4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/calculate",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"calculate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should calculate unique digit with a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return success when sending valid body\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(200);",
+											"});",
+											"",
+											"pm.test(\"Should return the correct value\", () =>{",
+											"    const body = pm.response.json();",
+											"    pm.expect(body).to.equals(8);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"number\": 9875,\n    \"k\": 4,\n    \"userID\": \"6e6f8521-c9d6-4920-b82b-fd76ff8a2f91\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/calculate",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"calculate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Should return bad request if send parameters out of range",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should return bad request if send without number\", () =>{",
+											"    pm.expect(pm.response.code).to.equals(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"number\": 104234234,\n    \"k\": 54781416\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/calculate",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"calculate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
